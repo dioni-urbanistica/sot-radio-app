@@ -8,9 +8,14 @@ const exo = Exo({
 })
 
 export default function Home() {
-  const audioRef = useRef<HTMLAudioElement>(
-    new Audio("https://a5.asurahosting.com:8450/radio.mp3")
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  useEffect(() => {
+  audioRef.current = new Audio(
+    "https://a5.asurahosting.com:8450/radio.mp3"
   )
+
+  audioRef.current.volume = volume / 100
+}, [])
 
   const [playing, setPlaying] = useState(false)
   const [news, setNews] = useState<any[]>([])
@@ -143,7 +148,9 @@ export default function Home() {
 
                 setVolume(value)
 
-                audioRef.current.volume = value / 100
+                if (audioRef.current) {
+  audioRef.current.volume = value / 100
+}
               }}
               className="w-full accent-[#45e9b5]"
             />
