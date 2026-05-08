@@ -117,6 +117,30 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
       </div>
 
       <div className="mt-20 flex justify-center">
+        <div className="mt-6 flex justify-center">
+
+<button
+onClick={() => {
+if (navigator.share) {
+navigator.share({
+title: "SOT Radio",
+text: "Dëgjo SOT Radio live 🎵",
+url: "https://sot-radio-app.vercel.app",
+})
+}
+}}
+className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium hover:scale-105 transition-all"
+
+>
+
+
+📤 Shpërndaje App-in
+
+
+  </button>
+
+</div>
+
         <div
           className={`px-8 py-2 rounded-full text-sm font-semibold tracking-wide ${
             playing
