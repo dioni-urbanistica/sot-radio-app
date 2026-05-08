@@ -25,7 +25,7 @@ try {
 const res = await fetch("/api/news")
 const data = await res.json()
 
-```
+
     const fixedNews = data.slice(0, 3).map((item: any) => ({
       title: item.title,
       image: item.image,
@@ -39,14 +39,14 @@ const data = await res.json()
 }
 
 fetchNews()
-```
+
 
 }, [])
 
 const toggleRadio = async () => {
 if (!audioRef.current) return
 
-```
+
 try {
   if (playing) {
     audioRef.current.pause()
@@ -58,7 +58,7 @@ try {
 } catch (err) {
   console.log(err)
 }
-```
+
 
 }
 
@@ -67,7 +67,7 @@ return (
 className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-center`}
 > <div className="w-full max-w-[420px] px-5 py-6">
 
-```
+
     <div className="rounded-[40px] bg-[#2f2f2f] border border-white/10 shadow-2xl px-6 py-8">
 
       <div className="flex justify-center">
@@ -200,7 +200,7 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
     </div>
   </div>
 </main>
-```
+
 
 )
 }
