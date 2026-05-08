@@ -9,24 +9,16 @@ const exo = Exo({
 
 export default function Home() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  useEffect(() => {
-  audioRef.current = new Audio(
-    "https://a5.asurahosting.com:8450/radio.mp3"
-  )
-
-  audioRef.current.volume = volume / 100
-}, [])
 
   const [playing, setPlaying] = useState(false)
   const [news, setNews] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [volume, setVolume] = useState(100)
 
   useEffect(() => {
-  if (audioRef.current) {
-    audioRef.current.volume = volume / 100
-  }
-}, [volume])
+    audioRef.current = new Audio(
+      "https://a5.asurahosting.com:8450/radio.mp3"
+    )
+  }, [])
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -61,7 +53,7 @@ export default function Home() {
 
   const toggleRadio = async () => {
     const audio = audioRef.current
-    
+
     if (!audio) return
 
     try {
@@ -69,7 +61,6 @@ export default function Home() {
         audio.pause()
         setPlaying(false)
       } else {
-        audio.volume = volume / 100
         await audio.play()
         setPlaying(true)
       }
@@ -128,37 +119,6 @@ export default function Home() {
                 />
               )}
             </button>
-          </div>
-
-          <div className="mt-14">
-
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-zinc-400">
-                Volume
-              </span>
-
-              <span className="text-sm font-semibold text-[#45e9b5]">
-                {volume}%
-              </span>
-            </div>
-
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={volume}
-              onChange={(e) => {
-                const value = Number(e.target.value)
-
-                setVolume(value)
-
-                if (audioRef.current) {
-  audioRef.current.volume = value / 100
-}
-              }}
-              className="w-full accent-[#45e9b5]"
-            />
-
           </div>
 
           <div className="mt-20 flex justify-center">
