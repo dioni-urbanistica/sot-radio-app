@@ -135,11 +135,9 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
       Volume
     </span>
 
-```
 <span className="text-sm font-semibold text-[#45e9b5]">
   {volume}%
 </span>
-```
 
   </div>
 
@@ -151,7 +149,7 @@ value={volume}
 onChange={(e) => {
 const value = Number(e.target.value)
 
-```
+
   setVolume(value)
 
   if (audioRef.current) {
@@ -159,7 +157,7 @@ const value = Number(e.target.value)
   }
 }}
 className="w-full accent-[#45e9b5]"
-```
+
 
 />
 
