@@ -214,6 +214,89 @@ style={{ animationDelay: "0.4s" }}
         ))}
 
       </div>
+      <div className="mt-10 flex items-center justify-center gap-5">
+
+<a
+href="https://www.instagram.com/sot_post"
+target="_blank"
+className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
+
+>
+
+
+<img
+
+
+
+  src="/instagram.png"
+  alt="Instagram"
+  className="w-6 h-6"
+/>
+
+
+  </a>
+
+<a
+href="https://www.facebook.com/people/SOT-Post/61580409317113/"
+target="_blank"
+className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
+
+>
+
+
+<img
+
+
+
+  src="/facebook.png"
+  alt="Facebook"
+  className="w-6 h-6"
+/>
+
+
+  </a>
+
+<a
+href="https://www.tiktok.com/@sotpost_"
+target="_blank"
+className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
+
+>
+
+
+<img
+
+
+
+  src="/tiktok.png"
+  alt="TikTok"
+  className="w-6 h-6"
+/>
+
+
+  </a>
+
+<a
+href="https://www.youtube.com/@sotpost"
+target="_blank"
+className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
+
+>
+
+
+<img
+
+
+
+  src="/youtube.png"
+  alt="YouTube"
+  className="w-6 h-6"
+/>
+
+  </a>
+
+</div>
+
 
     </div>
   </div>
