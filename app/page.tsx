@@ -23,8 +23,10 @@ export default function Home() {
   const [volume, setVolume] = useState(100)
 
   useEffect(() => {
+  if (audioRef.current) {
     audioRef.current.volume = volume / 100
-  }, [volume])
+  }
+}, [volume])
 
   useEffect(() => {
     const fetchNews = async () => {
