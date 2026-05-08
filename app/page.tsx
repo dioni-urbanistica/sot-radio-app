@@ -304,6 +304,20 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
 
       </div>
       <div className="mt-8 text-center text-xs text-zinc-500"> SOT Radio v1.0 </div>
+      <div className="mt-2 text-center text-[11px] text-zinc-600">
+  All rights are reserved — 2026 SOT Post
+</div>
+
+<div className="mt-2 text-center">
+  <a
+    href="https://sotpost.com/privacy-policy"
+    target="_blank"
+    className="text-[11px] text-[#45e9b5] hover:underline"
+  >
+    Privacy Policy
+  </a>
+</div>
+
 
     </div>
   </div>
