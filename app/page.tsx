@@ -25,10 +25,10 @@ try {
 const res = await fetch("/api/news")
 const data = await res.json()
 
+```
     const fixedNews = data.slice(0, 3).map((item: any) => ({
       title: item.title,
       image: item.image,
-      read: item.read || "1 min lexim",
       link: item.link || "https://sotpost.com",
     }))
 
@@ -39,12 +39,14 @@ const data = await res.json()
 }
 
 fetchNews()
+```
 
 }, [])
 
 const toggleRadio = async () => {
 if (!audioRef.current) return
 
+```
 try {
   if (playing) {
     audioRef.current.pause()
@@ -56,6 +58,7 @@ try {
 } catch (err) {
   console.log(err)
 }
+```
 
 }
 
@@ -64,6 +67,7 @@ return (
 className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-center`}
 > <div className="w-full max-w-[420px] px-5 py-6">
 
+```
     <div className="rounded-[40px] bg-[#2f2f2f] border border-white/10 shadow-2xl px-6 py-8">
 
       <div className="flex justify-center">
@@ -163,15 +167,25 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
                 {item.title}
               </h3>
 
-              <div className="flex items-center gap-4 text-xs">
+              <div className="flex items-center justify-between">
 
-                <span className="text-[#45e9b5] font-semibold">
+                <span className="text-[#45e9b5] text-xs font-semibold">
                   📖 Lexo lajmin
                 </span>
 
-                <span className="text-zinc-400">
-                  {item.read}
-                </span>
+                <div className="flex items-center gap-2">
+
+                  <img
+                    src="/sotpost.png"
+                    alt="SOT Post"
+                    className="w-5 h-5 rounded-full object-cover"
+                  />
+
+                  <span className="text-zinc-400 text-xs font-medium">
+                    SOT Post
+                  </span>
+
+                </div>
 
               </div>
 
@@ -186,6 +200,7 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
     </div>
   </div>
 </main>
+```
 
 )
 }
