@@ -2,68 +2,76 @@ import { NextResponse } from "next/server"
 import * as cheerio from "cheerio"
 
 export async function GET() {
-  try {
-    const response = await fetch("https://sotpost.com")
-    const html = await response.text()
+try {
+const response = await fetch("https://sotpost.com", {
+next: { revalidate: 300 },
+})
 
-    const $ = cheerio.load(html)
+```
+const html = await response.text()
 
-    const articles: any[] = []
+const $ = cheerio.load(html)
 
-    $("article").each((index, element) => {
+const articles: any[] = []
 
-      const title =
-        $(element).find("h2").first().text().trim() ||
-        $(element).find("h3").first().text().trim()
+$("article").each((index, element) => {
 
-      const image =
-        $(element).find("img").attr("src") ||
-        $(element).find("img").attr("data-src") ||
-        ""
+  const title =
+    $(element).find("h2").first().text().trim() ||
+    $(element).find("h3").first().text().trim()
 
-      const link =
-        $(element).find("a").first().attr("href") ||
-        "https://sotpost.com"
+  const image =
+    $(element).find("img").attr("src") ||
+    $(element).find("img").attr("data-src") ||
+    ""
 
-      let time = ""
+  const link =
+    $(element).find("a").first().attr("href") ||
+    "https://sotpost.com"
 
-      const datetime =
-        $(element).find("time").attr("datetime")
+  let time = ""
 
-      if (datetime) {
-        const date = new Date(datetime)
+  const datetime =
+    $(element).find("time").attr("datetime")
 
-        time = date.toLocaleTimeString("sq-AL", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      } else {
-        time =
-          $(element).find(".jeg_meta_date").text().trim() ||
-          $(element).find(".entry-date").text().trim() ||
-          $(element).find("time").text().trim()
-      }
+  if (datetime) {
+    const date = new Date(datetime)
 
-      if (
-        title &&
-        image &&
-        title.length > 10
-      ) {
-        articles.push({
-          title,
-          image,
-          time,
-          read: "1 min lexim",
-          link,
-        })
-      }
+    time = date.toLocaleTimeString("sq-AL", {
+      hour: "2-digit",
+      minute: "2-digit",
     })
-
-    return NextResponse.json(articles.slice(0, 3))
-
-  } catch (error) {
-    console.log(error)
-
-    return NextResponse.json([])
+  } else {
+    time =
+      $(element).find(".jeg_meta_date").text().trim() ||
+      $(element).find(".entry-date").text().trim() ||
+      $(element).find("time").text().trim()
   }
+
+  if (
+    title &&
+    image &&
+    title.length > 10
+  ) {
+    articles.push({
+      title,
+      image,
+      time,
+      read: "1 min lexim",
+      link,
+    })
+  }
+})
+
+return NextResponse.json(articles.slice(0, 3))
+```
+
+} catch (error) {
+console.log(error)
+
+```
+return NextResponse.json([])
+```
+
+}
 }
