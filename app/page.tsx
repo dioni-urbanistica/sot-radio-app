@@ -122,7 +122,25 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
               : "bg-[#4a4a4a] text-zinc-300"
           }`}
         >
-          {playing ? "ON AIR" : "OFFLINE"}
+          <div className="flex items-center gap-3">
+
+{playing && ( <div className="flex items-end gap-[3px] h-5"> <div className="w-1 h-3 bg-[#333333] rounded animate-bounce" />
+<div
+className="w-1 h-5 bg-[#333333] rounded animate-bounce"
+style={{ animationDelay: "0.2s" }}
+/>
+<div
+className="w-1 h-2 bg-[#333333] rounded animate-bounce"
+style={{ animationDelay: "0.4s" }}
+/> </div>
+)}
+
+  <span>
+    {playing ? "ON AIR" : "OFFLINE"}
+  </span>
+
+</div>
+
         </div>
       </div>
     </div>
