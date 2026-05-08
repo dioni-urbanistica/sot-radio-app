@@ -61,6 +61,8 @@ export default function Home() {
 
   const toggleRadio = async () => {
     const audio = audioRef.current
+    
+    if (!audio) return
 
     try {
       if (playing) {
