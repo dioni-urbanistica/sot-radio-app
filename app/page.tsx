@@ -15,23 +15,31 @@ const [news, setNews] = useState<any[]>([])
 const [loading, setLoading] = useState(true)
 const [volume, setVolume] = useState(100)
 
-
 useEffect(() => {
 audioRef.current = new Audio(
 "https://a5.asurahosting.com:8450/radio.mp3"
 )
+
+
 audioRef.current.volume = 1
 
+
 }, [])
+
+useEffect(() => {
+if (audioRef.current) {
+audioRef.current.volume = volume / 100
+}
+}, [volume])
 
 useEffect(() => {
 const fetchNews = async () => {
 setLoading(true)
 
-try {
-const res = await fetch("/api/news")
-const data = await res.json()
 
+  try {
+    const res = await fetch("/api/news")
+    const data = await res.json()
 
     const fixedNews = data.slice(0, 3).map((item: any) => ({
       title: item.title,
@@ -40,19 +48,20 @@ const data = await res.json()
     }))
 
     setNews(fixedNews)
-    setLoading(false)
   } catch (err) {
     console.log(err)
   }
+
+  setLoading(false)
 }
 
 fetchNews()
+
 const interval = setInterval(() => {
-fetchNews()
+  fetchNews()
 }, 60000)
 
 return () => clearInterval(interval)
-
 
 
 }, [])
@@ -130,38 +139,29 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
 
       <div className="mt-14">
 
-  <div className="flex items-center justify-between mb-2">
-    <span className="text-sm text-zinc-400">
-      Volume
-    </span>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm text-zinc-400">
+            Volume
+          </span>
 
-<span className="text-sm font-semibold text-[#45e9b5]">
-  {volume}%
-</span>
+          <span className="text-sm font-semibold text-[#45e9b5]">
+            {volume}%
+          </span>
+        </div>
 
-  </div>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={volume}
+          onChange={(e) => {
+            const value = Number(e.target.value)
+            setVolume(value)
+          }}
+          className="w-full accent-[#45e9b5]"
+        />
 
-<input
-type="range"
-min="0"
-max="100"
-value={volume}
-onChange={(e) => {
-const value = Number(e.target.value)
-
-
-  setVolume(value)
-
-  if (audioRef.current) {
-    audioRef.current.volume = value / 100
-  }
-}}
-className="w-full accent-[#45e9b5]"
-
-
-/>
-
-</div>
+      </div>
 
       <div className="mt-20 flex justify-center">
         <div
@@ -175,6 +175,7 @@ className="w-full accent-[#45e9b5]"
 
             {playing && (
               <div className="flex items-end gap-[3px] h-5">
+
                 <div className="w-1 h-3 bg-[#333333] rounded animate-bounce" />
 
                 <div
@@ -186,6 +187,7 @@ className="w-full accent-[#45e9b5]"
                   className="w-1 h-2 bg-[#333333] rounded animate-bounce"
                   style={{ animationDelay: "0.4s" }}
                 />
+
               </div>
             )}
 
@@ -196,11 +198,13 @@ className="w-full accent-[#45e9b5]"
           </div>
         </div>
       </div>
+
     </div>
 
     <div className="mt-10">
 
       <div className="flex items-center justify-between mb-5">
+
         <h2 className="text-[32px] font-bold">
           Lajmet e Fundit
         </h2>
@@ -212,6 +216,7 @@ className="w-full accent-[#45e9b5]"
         >
           sotpost.com
         </a>
+
       </div>
 
       <div className="space-y-5">
@@ -223,9 +228,11 @@ className="w-full accent-[#45e9b5]"
                 key={item}
                 className="flex gap-4 animate-pulse border-b border-white/5 pb-5"
               >
+
                 <div className="w-[92px] h-[92px] rounded-2xl bg-white/10" />
 
                 <div className="flex-1 flex flex-col justify-between py-1">
+
                   <div className="h-5 rounded bg-white/10 w-full" />
                   <div className="h-5 rounded bg-white/10 w-[80%]" />
 
@@ -233,7 +240,9 @@ className="w-full accent-[#45e9b5]"
                     <div className="h-4 rounded bg-white/10 w-24" />
                     <div className="h-4 rounded bg-white/10 w-16" />
                   </div>
+
                 </div>
+
               </div>
             ))}
           </>
@@ -342,26 +351,29 @@ className="w-full accent-[#45e9b5]"
         </a>
 
       </div>
-      <div className="mt-8 text-center text-xs text-zinc-500"> SOT Radio v1.0 </div>
+
+      <div className="mt-8 text-center text-xs text-zinc-500">
+        SOT Radio v1.0
+      </div>
+
       <div className="mt-2 text-center text-[11px] text-zinc-600">
-  All rights are reserved — 2026 SOT Post
-</div>
+        All rights are reserved — 2026 SOT Post
+      </div>
 
-<div className="mt-2 text-center">
-  <a
-    href="https://sotpost.com/?page_id=3"
-    target="_blank"
-    className="text-[11px] text-[#45e9b5] hover:underline"
-  >
-    Privacy Policy
-  </a>
-</div>
-
+      <div className="mt-2 text-center">
+        <a
+          href="https://sotpost.com/?page_id=3"
+          target="_blank"
+          className="text-[11px] text-[#45e9b5] hover:underline"
+        >
+          Privacy Policy
+        </a>
+      </div>
 
     </div>
+
   </div>
 </main>
-
 
 )
 }
