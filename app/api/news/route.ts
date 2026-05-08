@@ -4,10 +4,12 @@ import * as cheerio from "cheerio"
 export async function GET() {
 try {
 const response = await fetch("https://sotpost.com", {
-next: { revalidate: 300 },
+next: {
+revalidate: 300,
+},
 })
 
-```
+
 const html = await response.text()
 
 const $ = cheerio.load(html)
@@ -15,7 +17,6 @@ const $ = cheerio.load(html)
 const articles: any[] = []
 
 $("article").each((index, element) => {
-
   const title =
     $(element).find("h2").first().text().trim() ||
     $(element).find("h3").first().text().trim()
@@ -64,14 +65,13 @@ $("article").each((index, element) => {
 })
 
 return NextResponse.json(articles.slice(0, 3))
-```
+
 
 } catch (error) {
 console.log(error)
 
-```
 return NextResponse.json([])
-```
+
 
 }
 }
