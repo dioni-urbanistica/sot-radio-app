@@ -22,6 +22,8 @@ audioRef.current = new Audio(
 
 useEffect(() => {
 const fetchNews = async () => {
+setLoading(true)
+
 try {
 const res = await fetch("/api/news")
 const data = await res.json()
@@ -41,6 +43,12 @@ const data = await res.json()
 }
 
 fetchNews()
+const interval = setInterval(() => {
+fetchNews()
+}, 60000)
+
+return () => clearInterval(interval)
+
 
 
 }, [])
