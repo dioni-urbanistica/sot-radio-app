@@ -75,7 +75,7 @@ try {
 return (
 <main
 className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-center`}
-> <div className="w-full max-w-[420px] px-5 py-6">
+> <div className="w-full max-w-[420px] px-5 pt-6 pb-24">
 
 
     <div className="rounded-[40px] bg-[#2f2f2f] border border-white/10 shadow-2xl px-6 py-8">
