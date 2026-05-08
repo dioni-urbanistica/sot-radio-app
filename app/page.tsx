@@ -12,6 +12,7 @@ const audioRef = useRef<HTMLAudioElement | null>(null)
 
 const [playing, setPlaying] = useState(false)
 const [news, setNews] = useState<any[]>([])
+const [loading, setLoading] = useState(true)
 
 useEffect(() => {
 audioRef.current = new Audio(
@@ -33,6 +34,7 @@ const data = await res.json()
     }))
 
     setNews(fixedNews)
+    setLoading(false)
   } catch (err) {
     console.log(err)
   }
@@ -124,23 +126,27 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
         >
           <div className="flex items-center gap-3">
 
-{playing && ( <div className="flex items-end gap-[3px] h-5"> <div className="w-1 h-3 bg-[#333333] rounded animate-bounce" />
-<div
-className="w-1 h-5 bg-[#333333] rounded animate-bounce"
-style={{ animationDelay: "0.2s" }}
-/>
-<div
-className="w-1 h-2 bg-[#333333] rounded animate-bounce"
-style={{ animationDelay: "0.4s" }}
-/> </div>
-)}
+            {playing && (
+              <div className="flex items-end gap-[3px] h-5">
+                <div className="w-1 h-3 bg-[#333333] rounded animate-bounce" />
 
-  <span>
-    {playing ? "ON AIR" : "OFFLINE"}
-  </span>
+                <div
+                  className="w-1 h-5 bg-[#333333] rounded animate-bounce"
+                  style={{ animationDelay: "0.2s" }}
+                />
 
-</div>
+                <div
+                  className="w-1 h-2 bg-[#333333] rounded animate-bounce"
+                  style={{ animationDelay: "0.4s" }}
+                />
+              </div>
+            )}
 
+            <span>
+              {playing ? "ON AIR" : "OFFLINE"}
+            </span>
+
+          </div>
         </div>
       </div>
     </div>
@@ -163,7 +169,30 @@ style={{ animationDelay: "0.4s" }}
 
       <div className="space-y-5">
 
-        {news.map((item, index) => (
+        {loading && (
+          <>
+            {[1, 2, 3].map((item) => (
+              <div
+                key={item}
+                className="flex gap-4 animate-pulse border-b border-white/5 pb-5"
+              >
+                <div className="w-[92px] h-[92px] rounded-2xl bg-white/10" />
+
+                <div className="flex-1 flex flex-col justify-between py-1">
+                  <div className="h-5 rounded bg-white/10 w-full" />
+                  <div className="h-5 rounded bg-white/10 w-[80%]" />
+
+                  <div className="flex justify-between items-center mt-3">
+                    <div className="h-4 rounded bg-white/10 w-24" />
+                    <div className="h-4 rounded bg-white/10 w-16" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+
+        {!loading && news.map((item, index) => (
 
           <a
             key={index}
@@ -214,89 +243,58 @@ style={{ animationDelay: "0.4s" }}
         ))}
 
       </div>
+
       <div className="mt-10 flex items-center justify-center gap-5">
 
-<a
-href="https://www.instagram.com/sot_post"
-target="_blank"
-className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
+        <a
+          href="https://www.instagram.com/sot_post"
+          target="_blank"
+          className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
+        >
+          <img
+            src="/instagram.png"
+            alt="Instagram"
+            className="w-6 h-6"
+          />
+        </a>
 
->
+        <a
+          href="https://www.facebook.com/people/SOT-Post/61580409317113/"
+          target="_blank"
+          className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
+        >
+          <img
+            src="/facebook.png"
+            alt="Facebook"
+            className="w-6 h-6"
+          />
+        </a>
 
+        <a
+          href="https://www.tiktok.com/@sotpost_"
+          target="_blank"
+          className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
+        >
+          <img
+            src="/tiktok.png"
+            alt="TikTok"
+            className="w-6 h-6"
+          />
+        </a>
 
-<img
+        <a
+          href="https://www.youtube.com/@sotpost"
+          target="_blank"
+          className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
+        >
+          <img
+            src="/youtube.png"
+            alt="YouTube"
+            className="w-6 h-6"
+          />
+        </a>
 
-
-
-  src="/instagram.png"
-  alt="Instagram"
-  className="w-6 h-6"
-/>
-
-
-  </a>
-
-<a
-href="https://www.facebook.com/people/SOT-Post/61580409317113/"
-target="_blank"
-className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
-
->
-
-
-<img
-
-
-
-  src="/facebook.png"
-  alt="Facebook"
-  className="w-6 h-6"
-/>
-
-
-  </a>
-
-<a
-href="https://www.tiktok.com/@sotpost_"
-target="_blank"
-className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
-
->
-
-
-<img
-
-
-
-  src="/tiktok.png"
-  alt="TikTok"
-  className="w-6 h-6"
-/>
-
-
-  </a>
-
-<a
-href="https://www.youtube.com/@sotpost"
-target="_blank"
-className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
-
->
-
-
-<img
-
-
-
-  src="/youtube.png"
-  alt="YouTube"
-  className="w-6 h-6"
-/>
-
-  </a>
-
-</div>
-
+      </div>
 
     </div>
   </div>
