@@ -303,6 +303,7 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
         </a>
 
       </div>
+      <div className="mt-8 text-center text-xs text-zinc-500"> SOT Radio v1.0 </div>
 
     </div>
   </div>
