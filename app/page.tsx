@@ -310,7 +310,7 @@ className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-c
 
 <div className="mt-2 text-center">
   <a
-    href="https://sotpost.com/privacy-policy"
+    href="https://sotpost.com/?page_id=3"
     target="_blank"
     className="text-[11px] text-[#45e9b5] hover:underline"
   >
