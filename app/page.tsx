@@ -13,12 +13,25 @@ export default function Home() {
   const [playing, setPlaying] = useState(false)
   const [news, setNews] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const [darkMode, setDarkMode] = useState(true)
 
   useEffect(() => {
     audioRef.current = new Audio(
       "https://a5.asurahosting.com:8450/radio.mp3"
     )
   }, [])
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme")
+
+    if (savedTheme === "light") {
+      setDarkMode(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode ? "dark" : "light")
+  }, [darkMode])
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -71,11 +84,36 @@ export default function Home() {
 
   return (
     <main
-      className={`${exo.className} min-h-screen bg-[#333333] text-white flex justify-center`}
+      className={`${exo.className} min-h-screen flex justify-center transition-all duration-500 ${
+        darkMode
+          ? "bg-[#333333] text-white"
+          : "bg-[#f3f3f3] text-[#222222]"
+      }`}
     >
       <div className="w-full max-w-[420px] px-5 pt-6 pb-24">
 
-        <div className="rounded-[40px] bg-[#2f2f2f] border border-white/10 shadow-2xl px-6 py-8">
+        <div className="flex justify-end mb-4">
+
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+              darkMode
+                ? "bg-[#45e9b5] text-[#333333]"
+                : "bg-[#222222] text-white"
+            }`}
+          >
+            {darkMode ? "☀️ Day" : "🌙 Night"}
+          </button>
+
+        </div>
+
+        <div
+          className={`rounded-[40px] border shadow-2xl px-6 py-8 transition-all duration-500 ${
+            darkMode
+              ? "bg-[#2f2f2f] border-white/10"
+              : "bg-white border-black/10"
+          }`}
+        >
 
           <div className="flex justify-center">
             <img
@@ -126,7 +164,9 @@ export default function Home() {
               className={`px-8 py-2 rounded-full text-sm font-semibold tracking-wide ${
                 playing
                   ? "bg-[#45e9b5] text-[#333333]"
-                  : "bg-[#4a4a4a] text-zinc-300"
+                  : darkMode
+                  ? "bg-[#4a4a4a] text-zinc-300"
+                  : "bg-[#e5e5e5] text-[#222222]"
               }`}
             >
               <div className="flex items-center gap-3">
@@ -194,11 +234,6 @@ export default function Home() {
                       <div className="h-5 rounded bg-white/10 w-full" />
                       <div className="h-5 rounded bg-white/10 w-[80%]" />
 
-                      <div className="flex justify-between items-center mt-3">
-                        <div className="h-4 rounded bg-white/10 w-24" />
-                        <div className="h-4 rounded bg-white/10 w-16" />
-                      </div>
-
                     </div>
 
                   </div>
@@ -213,7 +248,11 @@ export default function Home() {
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex gap-4 hover:opacity-80 transition-all border-b border-white/5 pb-5"
+                className={`flex gap-4 transition-all border-b pb-5 hover:opacity-80 ${
+                  darkMode
+                    ? "border-white/5"
+                    : "border-black/10"
+                }`}
               >
 
                 <img
@@ -242,7 +281,13 @@ export default function Home() {
                         className="w-5 h-5 rounded-full object-cover"
                       />
 
-                      <span className="text-zinc-400 text-xs font-medium">
+                      <span
+                        className={`text-xs font-medium ${
+                          darkMode
+                            ? "text-zinc-400"
+                            : "text-zinc-600"
+                        }`}
+                      >
                         SOT Post
                       </span>
 
@@ -260,61 +305,65 @@ export default function Home() {
 
           <div className="mt-10 flex items-center justify-center gap-5">
 
-            <a
-              href="https://www.instagram.com/sot_post"
-              target="_blank"
-              className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
-            >
-              <img
-                src="/instagram.png"
-                alt="Instagram"
-                className="w-6 h-6"
-              />
-            </a>
-
-            <a
-              href="https://www.facebook.com/people/SOT-Post/61580409317113/"
-              target="_blank"
-              className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
-            >
-              <img
-                src="/facebook.png"
-                alt="Facebook"
-                className="w-6 h-6"
-              />
-            </a>
-
-            <a
-              href="https://www.tiktok.com/@sotpost_"
-              target="_blank"
-              className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
-            >
-              <img
-                src="/tiktok.png"
-                alt="TikTok"
-                className="w-6 h-6"
-              />
-            </a>
-
-            <a
-              href="https://www.youtube.com/@sotpost"
-              target="_blank"
-              className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:scale-110 transition-all"
-            >
-              <img
-                src="/youtube.png"
-                alt="YouTube"
-                className="w-6 h-6"
-              />
-            </a>
+            {[
+              {
+                href: "https://www.instagram.com/sot_post",
+                icon: "/instagram.png",
+                alt: "Instagram",
+              },
+              {
+                href: "https://www.facebook.com/people/SOT-Post/61580409317113/",
+                icon: "/facebook.png",
+                alt: "Facebook",
+              },
+              {
+                href: "https://www.tiktok.com/@sotpost_",
+                icon: "/tiktok.png",
+                alt: "TikTok",
+              },
+              {
+                href: "https://www.youtube.com/@sotpost",
+                icon: "/youtube.png",
+                alt: "YouTube",
+              },
+            ].map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                target="_blank"
+                className={`w-12 h-12 rounded-full border flex items-center justify-center hover:scale-110 transition-all ${
+                  darkMode
+                    ? "bg-white/5 border-white/10"
+                    : "bg-black/5 border-black/10"
+                }`}
+              >
+                <img
+                  src={social.icon}
+                  alt={social.alt}
+                  className="w-6 h-6"
+                />
+              </a>
+            ))}
 
           </div>
 
-          <div className="mt-8 text-center text-xs text-zinc-500">
+          <div
+            className={`mt-8 text-center text-xs ${
+              darkMode
+                ? "text-zinc-500"
+                : "text-zinc-600"
+            }`}
+          >
             SOT Radio v1.0
           </div>
 
-          <div className="mt-2 text-center text-[11px] text-zinc-600">
+          <div
+            className={`mt-2 text-center text-[11px] ${
+              darkMode
+                ? "text-zinc-600"
+                : "text-zinc-500"
+            }`}
+          >
             All rights are reserved — 2026 SOT Post
           </div>
 
