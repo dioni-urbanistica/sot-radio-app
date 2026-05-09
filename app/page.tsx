@@ -13,7 +13,6 @@ export default function Home() {
   const [playing, setPlaying] = useState(false)
   const [news, setNews] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [sleepTimer, setSleepTimer] = useState<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     audioRef.current = new Audio(
@@ -68,21 +67,6 @@ export default function Home() {
     } catch (err) {
       console.log(err)
     }
-  }
-
-  const startSleepTimer = (minutes: number) => {
-    if (sleepTimer) {
-      clearTimeout(sleepTimer)
-    }
-
-    const timer = setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.pause()
-        setPlaying(false)
-      }
-    }, minutes * 60 * 1000)
-
-    setSleepTimer(timer)
   }
 
   return (
@@ -171,39 +155,6 @@ export default function Home() {
 
               </div>
             </div>
-          </div>
-
-          <div className="mt-10">
-
-            <h3 className="text-center text-sm text-zinc-400 mb-4">
-              Sleep Timer
-            </h3>
-
-            <div className="flex justify-center gap-3">
-
-              <button
-                onClick={() => startSleepTimer(15)}
-                className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm hover:bg-[#45e9b5] hover:text-[#333333] transition-all"
-              >
-                15m
-              </button>
-
-              <button
-                onClick={() => startSleepTimer(30)}
-                className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm hover:bg-[#45e9b5] hover:text-[#333333] transition-all"
-              >
-                30m
-              </button>
-
-              <button
-                onClick={() => startSleepTimer(60)}
-                className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm hover:bg-[#45e9b5] hover:text-[#333333] transition-all"
-              >
-                60m
-              </button>
-
-            </div>
-
           </div>
 
         </div>
