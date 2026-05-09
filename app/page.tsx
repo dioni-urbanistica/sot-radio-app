@@ -117,7 +117,7 @@ export default function Home() {
 
           <div className="flex justify-center">
             <img
-              src="/logo.png"
+              src={darkMode ? "/logo.png" : "/logo-day.png"}
               alt="SOT Radio"
               className="w-[200px] object-contain"
             />
